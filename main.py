@@ -274,12 +274,12 @@ if add_selectbox == 'Query':
                      ).add_to(m)
                     
                     col1, col2 = st.columns(2)
-                    col1.markdown('<b>Details: </b> <br><br>', unsafe_allow_html=True)
-                    col2.markdown('<b>&nbsp;</b><br><br>', unsafe_allow_html=True)
-                    col1.markdown('<b>Park Path Length: </b>{}'.format(path_info_1[1]), unsafe_allow_html=True)
-                    col1.markdown('<b>Park Total Risk: </b>{}'.format(path_info_1[2]), unsafe_allow_html=True)
-                    col2.markdown('<b>Shelter Path Length: </b>{}'.format(path_info_2[1]), unsafe_allow_html=True)
-                    col2.markdown('<b>Shelter Total Risk: </b>{}'.format(path_info_2[2]), unsafe_allow_html=True)
+                    col1.markdown('<b>Details: </b> <br>', unsafe_allow_html=True)
+                    col2.markdown('<b>&nbsp;</b><br>', unsafe_allow_html=True)
+                    col1.markdown('<b>Park Path Length: </b>{}'.format(round(path_info_1[1])), unsafe_allow_html=True)
+                    col1.markdown('<b>Park Total Risk: </b>{}'.format(round(path_info_1[2])), unsafe_allow_html=True)
+                    col2.markdown('<b>Shelter Path Length: </b>{}'.format(round(path_info_2[1])), unsafe_allow_html=True)
+                    col2.markdown('<b>Shelter Total Risk: </b>{}'.format(round(path_info_2[2])), unsafe_allow_html=True)
 
                 else:
                     if risk_type == 'Custom Destination':
@@ -294,8 +294,8 @@ if add_selectbox == 'Query':
                     
                     path_info = findPath(graph, source_coordinates,destination_coordinates,choice_of_destination)
 
-                    st.markdown('<b>Path Length: </b>{}'.format(path_info[1]), unsafe_allow_html=True)
-                    st.markdown('<b>Total Risk: </b>{}'.format(path_info[2]), unsafe_allow_html=True)
+                    st.markdown('<b>Path Length: </b>{}'.format(round(path_info[1])), unsafe_allow_html=True)
+                    st.markdown('<b>Total Risk: </b>{}'.format(round(path_info[2])), unsafe_allow_html=True)
 
                     m = folium.Map(location=[(path_info[3][0]+path_info[4][0])/2, (path_info[3][1]+path_info[4][1])/2],
                         zoom_start = 13, tiles='cartodbpositron')
