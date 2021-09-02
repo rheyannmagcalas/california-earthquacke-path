@@ -246,7 +246,7 @@ if add_selectbox == 'Query':
 
                     lat, long, coords = getCoordinatesOfPointsInPath(path_info_1[0])
                     
-                    folium.Marker([coords[0][0], coords[0][1]], icon=folium.Icon(color="blue", icon="home", prefix='fa')).add_to(m)
+                    folium.Marker([coords[0][0], coords[0][1]], icon=folium.Icon(color="blue", prefix='fa')).add_to(m)
                     
                     folium.PolyLine(coords, popup='<b>Path of Vehicle_1</b>',
                                                         color='red',
@@ -263,8 +263,13 @@ if add_selectbox == 'Query':
 
                     lat, long, coords_2 = getCoordinatesOfPointsInPath(path_info_2[0])
                     
-                    folium.Marker([coords_2[0][0], coords_2[0][1]], icon=folium.Icon(color="blue", icon="home", prefix='fa')).add_to(m)
+                    
                     folium.PolyLine(coords_2, color='red', weight=5).add_to(m)
+                    
+                    folium.Marker([coords[len(coords_2)-1][0], coords[len(coords_2)-1][1]], 
+                                popup='Shelter',
+                                icon=folium.Icon(color="red", icon="home", prefix='fa')
+                                ).add_to(m)
                     
                     col1, col2 = st.columns(2)
                     col1.markdown('<b>Details: </b> <br>', unsafe_allow_html=True)
