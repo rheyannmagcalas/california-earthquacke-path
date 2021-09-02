@@ -221,7 +221,7 @@ add_selectbox = st.sidebar.radio(
 
 
 if add_selectbox == 'Query':
-    col1, col2 = st.beta_columns([5, 2])
+    col1, col2 = st.columns([5, 2])
     source_address = col1.text_input('Current Location:') 
     risk_type = col2.selectbox('Select Destination Type', ('Nearest Park and Shelter','Nearest Park', 'Nearest Shelter', 'Custom Destination'))
     if risk_type == 'Custom Destination':
@@ -276,7 +276,7 @@ if add_selectbox == 'Query':
                                 icon=folium.Icon(color="red", icon="home", prefix='fa')
                                 ).add_to(m)
                     
-                    col1, col2 = st.beta_columns(2)
+                    col1, col2 = st.columns(2)
                     col1.markdown('<b>Details: </b> <br><br>', unsafe_allow_html=True)
                     col2.markdown('<b>&nbsp;</b><br><br>', unsafe_allow_html=True)
                     col1.markdown('<b>Park Path Length: </b>{}'.format(path_info_1[1]), unsafe_allow_html=True)
