@@ -243,13 +243,11 @@ if add_selectbox == 'Query':
                     m = folium.Map(location=[(path_info_1[3][0]+path_info_1[4][0])/2, (path_info_1[3][1]+path_info_1[4][1])/2],
                         zoom_start = 13, tiles='cartodbpositron')
 
-                    folium.Marker([path_info_1[3][0], path_info_1[3][1]], 
-                                popup='Park',
-                                icon=folium.Icon(color="green")
-                                ).add_to(m)
 
                     lat, long, coords = getCoordinatesOfPointsInPath(path_info_1[0])
-
+                    
+                    folium.Marker([coords[0][0], coords[0][1]], icon=folium.Icon(color="blue", icon="home", prefix='fa')).add_to(m)
+                    
                     folium.PolyLine(coords, popup='<b>Path of Vehicle_1</b>',
                                                         tooltip='Vehicle_1',
                                                         color='red',
@@ -271,10 +269,9 @@ if add_selectbox == 'Query':
                                                         color='red',
                                                         weight=5).add_to(m)
 
-                    folium.Marker([coords[len(coords)-1][0], coords[len(coords)-1][1]], 
-                                popup='Shelter',
-                                icon=folium.Icon(color="red", icon="home", prefix='fa')
-                                ).add_to(m)
+                    folium.Marker([coords[0][0], coords[0][1]], 
+                      icon=folium.Icon(color="blue", icon="home", prefix='fa')
+                     ).add_to(m)
                     
                     col1, col2 = st.columns(2)
                     col1.markdown('<b>Details: </b> <br><br>', unsafe_allow_html=True)
@@ -303,11 +300,10 @@ if add_selectbox == 'Query':
                     m = folium.Map(location=[(path_info[3][0]+path_info[4][0])/2, (path_info[3][1]+path_info[4][1])/2],
                         zoom_start = 13, tiles='cartodbpositron')
 
-                    folium.Marker([path_info[3][0], path_info[3][1]], 
-                                icon=folium.Icon(color="green", icon="home", prefix='fa')
-                                ).add_to(m)
-
+                    
                     lat, long, coords = getCoordinatesOfPointsInPath(path_info[0])
+                    
+                    folium.Marker([coords[0][0], coords[0][1]], icon=folium.Icon(color="blue", icon="home", prefix='fa')).add_to(m)
                         
                     folium.PolyLine(coords, popup='<b>Path of Vehicle_1</b>',
                                                         tooltip='Vehicle_1',
