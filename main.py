@@ -216,11 +216,11 @@ st.sidebar.markdown('<h1 style="margin-left:8%; color:#1a5276">California Earthq
 
 add_selectbox = st.sidebar.radio(
     "",
-    ("Query", "Maps")
+    ("Find Path", "Maps")
 )
 
 
-if add_selectbox == 'Query':
+if add_selectbox == 'Find Path':
     col1, col2 = st.columns([5, 2])
     source_address = col1.text_input('Current Location:') 
     risk_type = col2.selectbox('Select Destination Type', ('Nearest Park and Shelter','Nearest Park', 'Nearest Shelter', 'Custom Destination'))
