@@ -216,12 +216,12 @@ st.sidebar.markdown('<h1 style="margin-left:8%; color:#1a5276">California Earthq
 
 add_selectbox = st.sidebar.radio(
     "",
-    ("Query", "Maps")
+    ("Find Path", "Maps")
 )
 
 
-if add_selectbox == 'Query':
-    col1, col2 = st.beta_columns([5, 2])
+if add_selectbox == 'Find Path':
+    col1, col2 = st.columns([5, 2])
     source_address = col1.text_input('Current Location:') 
     risk_type = col2.selectbox('Select Destination Type', ('Nearest Park and Shelter','Nearest Park', 'Nearest Shelter', 'Custom Destination'))
     if risk_type == 'Custom Destination':
@@ -243,15 +243,12 @@ if add_selectbox == 'Query':
                     m = folium.Map(location=[(path_info_1[3][0]+path_info_1[4][0])/2, (path_info_1[3][1]+path_info_1[4][1])/2],
                         zoom_start = 13, tiles='cartodbpositron')
 
-                    folium.Marker([path_info_1[3][0], path_info_1[3][1]], 
-                                popup='Park',
-                                icon=folium.Icon(color="green")
-                                ).add_to(m)
 
                     lat, long, coords = getCoordinatesOfPointsInPath(path_info_1[0])
-
+                    
+                    folium.Marker([coords[0][0], coords[0][1]], icon=folium.Icon(color="green", prefix='fa')).add_to(m)
+                    
                     folium.PolyLine(coords, popup='<b>Path of Vehicle_1</b>',
-                                                        tooltip='Vehicle_1',
                                                         color='red',
                                                         weight=5).add_to(m)
 
@@ -264,25 +261,23 @@ if add_selectbox == 'Query':
                     choice_of_destination = 2
                     path_info_2 = findPath(graph, source_coordinates,destination_coordinates,choice_of_destination)
 
-                    lat, long, coords = getCoordinatesOfPointsInPath(path_info_2[0])
-
-                    folium.PolyLine(coords, popup='<b>Path of Vehicle_1</b>',
-                                                        tooltip='Vehicle_1',
-                                                        color='red',
-                                                        weight=5).add_to(m)
-
-                    folium.Marker([coords[len(coords)-1][0], coords[len(coords)-1][1]], 
+                    lat, long, coords_2 = getCoordinatesOfPointsInPath(path_info_2[0])
+                    
+                    
+                    folium.PolyLine(coords_2, color='red', weight=5).add_to(m)
+                    
+                    folium.Marker([coords[len(coords_2)-1][0], coords[len(coords_2)-1][1]], 
                                 popup='Shelter',
                                 icon=folium.Icon(color="red", icon="home", prefix='fa')
                                 ).add_to(m)
                     
-                    col1, col2 = st.beta_columns(2)
-                    col1.markdown('<b>Details: </b> <br><br>', unsafe_allow_html=True)
-                    col2.markdown('<b>&nbsp;</b><br><br>', unsafe_allow_html=True)
-                    col1.markdown('<b>Park Path Length: </b>{}'.format(path_info_1[1]), unsafe_allow_html=True)
-                    col1.markdown('<b>Park Total Risk: </b>{}'.format(path_info_1[2]), unsafe_allow_html=True)
-                    col2.markdown('<b>Shelter Path Length: </b>{}'.format(path_info_2[1]), unsafe_allow_html=True)
-                    col2.markdown('<b>Shelter Total Risk: </b>{}'.format(path_info_2[2]), unsafe_allow_html=True)
+                    col1, col2 = st.columns(2)
+                    col1.markdown('<b>Details: </b> <br>', unsafe_allow_html=True)
+                    col2.markdown('<b>&nbsp;</b><br>', unsafe_allow_html=True)
+                    col1.markdown('<b>Park Path Length: </b>{}'.format(round(path_info_1[1])), unsafe_allow_html=True)
+                    col1.markdown('<b>Park Total Risk: </b>{}'.format(round(path_info_1[2])), unsafe_allow_html=True)
+                    col2.markdown('<b>Shelter Path Length: </b>{}'.format(round(path_info_2[1])), unsafe_allow_html=True)
+                    col2.markdown('<b>Shelter Total Risk: </b>{}'.format(round(path_info_2[2])), unsafe_allow_html=True)
 
                 else:
                     if risk_type == 'Custom Destination':
@@ -297,17 +292,16 @@ if add_selectbox == 'Query':
                     
                     path_info = findPath(graph, source_coordinates,destination_coordinates,choice_of_destination)
 
-                    st.markdown('<b>Path Length: </b>{}'.format(path_info[1]), unsafe_allow_html=True)
-                    st.markdown('<b>Total Risk: </b>{}'.format(path_info[2]), unsafe_allow_html=True)
+                    st.markdown('<b>Path Length: </b>{}'.format(round(path_info[1])), unsafe_allow_html=True)
+                    st.markdown('<b>Total Risk: </b>{}'.format(round(path_info[2])), unsafe_allow_html=True)
 
                     m = folium.Map(location=[(path_info[3][0]+path_info[4][0])/2, (path_info[3][1]+path_info[4][1])/2],
                         zoom_start = 13, tiles='cartodbpositron')
 
-                    folium.Marker([path_info[3][0], path_info[3][1]], 
-                                icon=folium.Icon(color="green", icon="home", prefix='fa')
-                                ).add_to(m)
-
+                    
                     lat, long, coords = getCoordinatesOfPointsInPath(path_info[0])
+                    
+                    folium.Marker([coords[0][0], coords[0][1]], icon=folium.Icon(color="green", prefix='fa')).add_to(m)
                         
                     folium.PolyLine(coords, popup='<b>Path of Vehicle_1</b>',
                                                         tooltip='Vehicle_1',
@@ -319,9 +313,7 @@ if add_selectbox == 'Query':
                                 icon=folium.Icon(color="red", icon="map-pin", prefix='fa')
                                 ).add_to(m)
 
-                    
 
-                
                 folium_static(m, width=900)
 
 
