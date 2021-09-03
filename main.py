@@ -42,7 +42,7 @@ st.markdown(
 graph = nx.read_gpickle('2_all_graph_all_risk_added.pickle')
 nodes, edges = ox.graph_to_gdfs(graph)
 
-HtmlFile = open("heatmap.html", 'r', encoding='utf-8')
+HtmlFile = open("heatmap_1.html", 'r', encoding='utf-8')
 heatmap_html = HtmlFile.read() 
 
 def convertAddressToGeoCoordinates(address):
