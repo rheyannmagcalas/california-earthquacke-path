@@ -42,8 +42,11 @@ st.markdown(
 graph = nx.read_gpickle('2_all_graph_all_risk_added.pickle')
 nodes, edges = ox.graph_to_gdfs(graph)
 
-HtmlFile = open("heatmap_1.html", 'r', encoding='utf-8')
+HtmlFile = open("heatmap_3.html", 'r', encoding='utf-8')
 heatmap_html = HtmlFile.read() 
+
+HtmlFile = open("heatmap_4.html", 'r', encoding='utf-8')
+heatmap_html_2 = HtmlFile.read() 
 
 def convertAddressToGeoCoordinates(address):
     '''
@@ -322,6 +325,15 @@ if add_selectbox == 'Find Path':
             st.write('Error:: {}'.format(str(e)))
 
 else:
-    risk_type = st.selectbox('Risk Factor', ('Combined Risk Factor','Building Risk Score', 'Distance Risk Score'))
-    components.html(heatmap_html, height= 500, width=900)
+    col1, col2 = st.columns([5, 2])
+    risk_type = col1.selectbox('Risk Factor', ('Combined Risk Factor','Building Risk Score', 'Distance Risk Score'))
+    col2.markdown("<br>", unsafe_allow_html=True)
+    show_markers = col2.checkbox("Show Safety Evacuation Markers", value=True)
+
+    if show_markers:
+        components.html(heatmap_html_2, height= 500, width=900)
+    else:
+        components.html(heatmap_html, height= 500, width=900)
+
+
 
