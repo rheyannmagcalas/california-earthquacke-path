@@ -238,10 +238,14 @@ if add_selectbox == 'Find Path':
                 st.write('Please Input Source Address')
             else:
                 destination_coordinates = ''
-                source_coordinates = convertAddressToGeoCoordinates(source_address)
+                if source_address == '10535 Zelzah Ave, Granada Hills, CA 91344':
+                    source_coordinates = (34.26181142857143, -118.52346081632652)
+                else:
+                    source_coordinates = convertAddressToGeoCoordinates(source_address)
+
                 if risk_type == 'Nearest Park and Shelter':
                     choice_of_destination = 1
-                    path_info_1 = findPath(graph, source_coordinates,destination_coordinates,choice_of_destination)
+                    path_info_1 = findPath(graph, source_coordinates, destination_coordinates,choice_of_destination)
                     
                     m = folium.Map(location=[(path_info_1[3][0]+path_info_1[4][0])/2, (path_info_1[3][1]+path_info_1[4][1])/2],
                         zoom_start = 13, tiles='cartodbpositron')
@@ -262,7 +266,7 @@ if add_selectbox == 'Find Path':
                                 ).add_to(m)
 
                     choice_of_destination = 2
-                    path_info_2 = findPath(graph, source_coordinates,destination_coordinates,choice_of_destination)
+                    path_info_2 = findPath(graph, source_coordinates, destination_coordinates, choice_of_destination)
 
                     lat, long, coords_2 = getCoordinatesOfPointsInPath(path_info_2[0])
                     
@@ -284,7 +288,11 @@ if add_selectbox == 'Find Path':
 
                 else:
                     if risk_type == 'Custom Destination':
-                        destination_coordinates = convertAddressToGeoCoordinates(destination_address)
+                        if destination_address == '7741 Hayvenhurst Ave, Van Nuys, CA 91406':
+                            destination_coordinates = (34.210709391959796, -118.49252110552764)
+                        else:
+                            destination_coordinates = convertAddressToGeoCoordinates(destination_address)
+
                         choice_of_destination = 3
                     elif risk_type == 'Nearest Shelter':
                         choice_of_destination = 2
@@ -293,7 +301,7 @@ if add_selectbox == 'Find Path':
                         choice_of_destination = 1
 
                     
-                    path_info = findPath(graph, source_coordinates,destination_coordinates,choice_of_destination)
+                    path_info = findPath(graph, source_coordinates, destination_coordinates, choice_of_destination)
 
                     st.markdown('<b>Path Length: </b>{}'.format(round(path_info[1])), unsafe_allow_html=True)
                     st.markdown('<b>Total Risk: </b>{}'.format(round(path_info[2])), unsafe_allow_html=True)
@@ -326,7 +334,7 @@ if add_selectbox == 'Find Path':
 
 else:
     col1, col2 = st.columns([5, 2])
-    risk_type = col1.selectbox('Risk Factor', ('Combined Risk Factor','Building Risk Score', 'Distance Risk Score'))
+    risk_type = col1.selectbox('Risk Factor', ('Combined Risk Factor', ))
     col2.markdown("<br>", unsafe_allow_html=True)
     show_markers = col2.checkbox("Show Safety Evacuation Markers", value=True)
 
